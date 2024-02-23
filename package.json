@@ -4,7 +4,8 @@
   "description": "Projeto com NodeJS e Express",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Orlando Vieira Neto",
   "license": "MIT",
