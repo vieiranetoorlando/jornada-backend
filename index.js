@@ -25,10 +25,16 @@ async function main() {
   //lista de personagens
   const lista = ['Rick Sanchez', 'Morty Smith', 'Summer Smith']
 
+  //
+  const db = client.db(dbname)
+  const collection = db.collection('items')
+
   // Read all -> [GET] / item
-  app.get('/item', function (req, res) {
+  app.get('/item', async function (req, res) {
+    const items = await collection.find().toArray()
+
     //envio a lista inteiro como resposta HTTP
-    res.send(lista)
+    res.send(items)
   })
 
   // Read By ID -> [GET] /item/:id
