@@ -1,24 +1,38 @@
 const express = require('express')
-const app = express()
+const { MongoClient } = require('mongodb')
 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
+const dbUrl = 'mongodb+srv://admin:MCQGpUnr0BhpZ7Ts@cluster0.9hmlxqw.mongodb.net'
+const dbname = 'BackendData'
 
-app.get('/oi', function (req, res) {
+async function main() {
+  const client = new MongoClient(dbUrl)
+
+  console.log('Conectando ao banco de dados...')
+  await client.connect()
+  console.log('Banco de dados conectado com sucesso!')
+
+  const app = express()
+
+
+
+  app.get('/', function (req, res) {
+    res.send('Hello World')
+  })
+
+  app.get('/oi', function (req, res) {
     res.send('Olá mundo')
   })
-//lista de personagens
+  //lista de personagens
   const lista = ['Rick Sanchez', 'Morty Smith', 'Summer Smith']
 
   // Read all -> [GET] / item
-  app.get('/item', function (req, res){
+  app.get('/item', function (req, res) {
     //envio a lista inteiro como resposta HTTP
     res.send(lista)
   })
 
   // Read By ID -> [GET] /item/:id
-  app.get('/item/:id', function(req, res){
+  app.get('/item/:id', function (req, res) {
     // Acessp o ID no parâ,etro de rota
     const id = req.params.id
 
@@ -47,4 +61,7 @@ app.get('/oi', function (req, res) {
     res.send('Item adicionado com sucesso!')
   })
 
-app.listen(3000)
+  app.listen(3000)
+}
+
+main()
